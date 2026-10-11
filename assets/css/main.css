@@ -429,6 +429,8 @@ button {
   margin-bottom: 2rem;
   padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--border-color);
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .section-title {
@@ -436,6 +438,43 @@ button {
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+}
+
+.section-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.carousel-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carousel-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.carousel-arrow-btn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-focus);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.carousel-arrow-btn:active {
+  transform: scale(0.95);
 }
 
 .section-link {
@@ -449,6 +488,85 @@ button {
 
 .section-link:hover {
   text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------------------
+   POSTS CAROUSEL (Active when posts > 3)
+   ------------------------------------------------------------------------------ */
+.posts-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0.5rem 0.25rem 1rem;
+}
+
+.posts-carousel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--radius-md);
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+}
+
+@media (min-width: 680px) {
+  .carousel-slide {
+    flex: 0 0 calc((100% - 2rem) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-slide {
+    flex: 0 0 calc((100% - 4rem) / 3);
+  }
+}
+
+.carousel-slide .post-card {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--border-color);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  background-color: var(--text-muted);
+}
+
+.carousel-dot.active {
+  width: 26px;
+  background-color: var(--accent);
 }
 
 /* ------------------------------------------------------------------------------

@@ -7,7 +7,7 @@ layout: default
   {% include hero.html %}
 
   <!-- Latest Articles Section -->
-  <section class="latest-posts-section">
+  <section class="latest-posts-section" aria-label="Latest Articles">
     <div class="section-header">
       <div>
         <h2 class="section-title">Latest Articles</h2>
@@ -15,20 +15,57 @@ layout: default
           {{ site.tagline }}
         </p>
       </div>
-      <a href="{{ '/archive/' | relative_url }}" class="section-link">
-        View all articles
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
+
+      <div class="section-header-actions">
+        {% if site.posts.size > 3 %}
+        <!-- Carousel Left / Right Navigation Controls -->
+        <div class="carousel-nav-controls" role="group" aria-label="Carousel Navigation">
+          <button type="button" class="carousel-arrow-btn carousel-prev-btn" aria-label="Previous articles" title="Previous articles">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="carousel-arrow-btn carousel-next-btn" aria-label="Next articles" title="Next articles">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+        {% endif %}
+
+        <a href="{{ '/archive/' | relative_url }}" class="section-link">
+          View all
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
     </div>
 
+    {% if site.posts.size > 3 %}
+    <!-- Carousel Layout (> 3 blogs) -->
+    <div class="posts-carousel" id="posts-carousel" role="region" aria-roledescription="carousel" aria-label="Articles Carousel">
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carousel-track">
+          {% for post in site.posts %}
+            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ site.posts.size }}">
+              {% include post-card.html post=post %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="carousel-pagination" id="carousel-pagination" aria-label="Carousel pagination"></div>
+    </div>
+    {% else %}
+    <!-- Standard Grid Layout (3 or fewer blogs) -->
     <div class="posts-grid">
-      {% assign posts_limit = site.theme_settings.posts_per_page | default: 6 %}
-      {% for post in site.posts limit: posts_limit %}
+      {% for post in site.posts %}
         {% include post-card.html post=post %}
       {% endfor %}
     </div>
+    {% endif %}
   </section>
 </div>
